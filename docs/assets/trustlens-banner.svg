@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="252" viewBox="0 0 1200 252" role="img" aria-labelledby="title desc">
+<title id="title">TrustLens</title><desc id="desc">Find it. Understand it. Trust it. Built for the SD Worx challenge.</desc>
+<rect width="1200" height="252" fill="#F4F2EC"/>
+<path d="M48 40H1152" stroke="#D8D5CD"/>
+<rect x="48" y="72" width="64" height="64" rx="6" fill="#1F3A93"/>
+<path d="M80 85l17 7v13c0 13-17 23-17 23s-17-10-17-23V92z" fill="none" stroke="#FFFFFF" stroke-width="2.5"/>
+<path d="M72 105l6 6 11-13" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="136" y="122" fill="#16181D" font-family="Georgia,serif" font-size="58">TrustLens</text>
+<text x="50" y="189" fill="#16181D" font-family="Arial,sans-serif" font-size="25">Find it. Understand it. Trust it.</text>
+<text x="1152" y="187" text-anchor="end" fill="#5C616A" font-family="Arial,sans-serif" font-size="15" letter-spacing="1.5">SD WORX · TECTONIC 2026</text>
+<path d="M48 220H1152" stroke="#D8D5CD"/>
+</svg>

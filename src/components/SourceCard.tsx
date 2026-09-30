@@ -1,0 +1,8 @@
+import { Archive, BadgeCheck, BadgeAlert, ContactRound, MessageSquare, TriangleAlert } from 'lucide-react';
+import type { Flag, Source } from '../data/scenario';
+import { score } from '../lib/scoring';
+import { ScoreRing } from './ScoreRing';
+const flagLabels: Record<Flag, string> = { approved: 'Approved', outdated: 'Outdated', conflicts: 'Conflicts', wrong_country: 'Wrong country', no_owner: 'No owner', unverified: 'Unverified' };
+export function SourceCard({ source, selected, onSelect }: { source: Source; selected: boolean; onSelect: () => void }) {
+  return <button className={`source-card ${selected ? 'is-selected' : ''}`} onClick={onSelect} aria-pressed={selected} aria-label={`Inspect ${source.title}, trust score ${Math.round(score(source))}`}><div className="source-copy"><div className="source-flags">{(source.id === 's1' || source.country === 'FR') && <span className="country-code">{source.country}</span>}{source.flags.map(flag => <span key={flag} className={`flag flag-${flag}`}>{flag === 'approved' ? <span className="status-dot" /> : flag === 'outdated' ? <Archive size={11} /> : flag === 'no_owner' ? <BadgeAlert size={11} /> : <TriangleAlert size={11} />}{flagLabels[flag]}</span>)}{source.id === 's1' && <span className="flag primary-flag">Primary</span>}</div><h3>{source.title}</h3><div className="source-meta">{source.owner ? <ContactRound size={18} /> : <MessageSquare size={18} />}<span>{source.owner ? <>Owner: <span className={source.id === 's1' ? 'owner-strong' : ''}>{source.owner}</span></> : 'Source: Internal Chat Export'}</span><span className="meta-dot">·</span><time>{source.date}</time></div></div><ScoreRing value={score(source)} /><BadgeCheck className="sr-only" /></button>;
+}

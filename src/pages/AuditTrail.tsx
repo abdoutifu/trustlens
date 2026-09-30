@@ -1,0 +1,7 @@
+import { History, LockKeyhole } from 'lucide-react';
+import type { AuditEntry, Role } from '../data/scenario';
+import { permissions } from '../lib/scoring';
+export function AuditTrail({ entries, role }: { entries: AuditEntry[]; role: Role }) {
+  if (!permissions(role).canViewAudit) return <div className="empty-state panel"><LockKeyhole size={40} /><h2>Admin access required</h2><p>Choose the Admin demo role to view the audit trail.</p></div>;
+  return <section className="page-section"><div className="page-heading"><div><p className="eyebrow">Decision accountability</p><h1>Audit Trail</h1><p>An append-only record of this session’s review actions.</p></div><span className="count-chip">{entries.length} entries</span></div>{entries.length === 0 ? <div className="empty-state panel"><History size={46} /><h2>No review actions yet</h2><p>Validation, escalation, and rejected answers will appear here.</p></div> : <div className="table-panel panel"><table><caption className="sr-only">Review audit entries</caption><thead><tr><th>Who</th><th>What</th><th>When</th><th>Reason</th></tr></thead><tbody>{entries.map(entry => <tr key={entry.id}><td>{entry.who}</td><td><span className="audit-action">{entry.what}</span></td><td>{new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Brussels', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(entry.when))}</td><td>{entry.reason}</td></tr>)}</tbody></table></div>}</section>;
+}

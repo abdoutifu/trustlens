@@ -1,0 +1,7 @@
+import { Building2, CalendarDays, ListChecks, RefreshCw } from 'lucide-react';
+import { scenario } from '../data/scenario';
+export function QuestionCard({ confident }: { confident: boolean }) {
+  return <section className="question-card" aria-labelledby="question"><div className="question-top"><p className="eyebrow"><ListChecks size={18} />Payroll compliance inquiry · Ticket #{scenario.ticket}</p><span className={`analysis-badge ${confident ? 'green' : 'amber'}`}><span className="status-dot" />4 Sources Analyzed <span className="badge-divider">·</span> {confident ? 'High Confidence' : 'Review required'}</span></div>
+    <h1 id="question">{scenario.question}</h1><div className="context-row"><div className="context-controls"><label className="context-select"><span className="country-code">BE</span><span>Country:</span><select name="country" aria-label="Country" defaultValue="Belgium"><option>Belgium</option></select></label><label className="context-select"><Building2 size={18} /><span>Customer:</span><select name="customer" aria-label="Customer" defaultValue="Acme NV"><option>Acme NV</option></select></label><label className="context-select"><CalendarDays size={18} /><span>Payroll year:</span><select name="year" aria-label="Payroll year" defaultValue="2026"><option>2026</option></select></label></div><p className="sync"><RefreshCw size={17} />Cross-jurisdiction sync: 4 minutes ago</p></div>
+  </section>;
+}

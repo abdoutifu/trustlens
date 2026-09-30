@@ -9,7 +9,7 @@ export interface ValidationInput { questionId: string; sourceId: string; claim: 
 export interface DecisionSnapshot { tickets: Scenario[]; question: Scenario; sources: Source[]; cards: VerifiedCard[]; escalation?: Escalation; evaluation: Evaluation; auditCount: number; search?: SearchState }
 
 export interface CreateIssueInput { question: string; countryCode: string; customer: string; year: number }
-export interface SearchState { status: 'pending' | 'ready' | 'empty' | 'error'; message: string; citations: {sourceId: string; reference: string; quote: string}[]; relationship?: 'agreement' | 'conflict' | 'insufficient'; answersQuestion?: boolean }
+export interface SearchState { status: 'pending' | 'ready' | 'empty' | 'error'; phase?: 'searching' | 'comparing'; message: string; citations: {sourceId: string; reference: string; quote: string}[]; relationship?: 'agreement' | 'conflict' | 'insufficient'; answersQuestion?: boolean }
 const searches = new Map<string, SearchState>();
 export const requestContext = new AsyncLocalStorage<{session: Session | null}>();
 // Deliberately non-cryptographic mock hash for the local demo, never production auth.
@@ -157,7 +157,7 @@ export async function findKnowledge(questionId: string): Promise<Result<Decision
     if (!searches.has(q.id)) fail('CONFLICT', 'Seeded tickets already contain their reviewed source excerpts.');
     const previous = searches.get(q.id)!;
     if (previous.message === 'Retrieving and comparing source evidence…') fail('CONFLICT', 'A search is already running for this issue.');
-    const pending: SearchState = { status: 'pending', message: 'Retrieving and comparing source evidence…', citations: [] };
+    const pending: SearchState = { status: 'pending', phase: 'searching', message: 'Retrieving and comparing source evidence…', citations: [] };
     searches.set(q.id, pending);
     const candidates = retrievalCandidates(q);
     const idMap = new Map(candidates.map(source => [source.id, crypto.randomUUID()]));
@@ -167,6 +167,7 @@ export async function findKnowledge(questionId: string): Promise<Result<Decision
     if (!eligible.length) state = { status: 'empty', message: 'No eligible evidence matches this question and customer context. No answer recommended.', citations: [] };
     else {
       try {
+        pending.phase = 'comparing';
         const comparison = await compareSources(q, eligible);
         state = { status: comparison.answersQuestion && comparison.relationship !== 'insufficient' ? 'ready' : 'empty', message: comparison.answersQuestion && comparison.relationship !== 'insufficient' ? 'Evidence retrieved; cited comparison complete.' : 'Retrieved clauses do not sufficiently answer this question. Ask the workspace reviewer queue.', ...comparison };
       }

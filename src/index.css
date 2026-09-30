@@ -270,3 +270,92 @@ td:nth-child(3),time,code { font-family: var(--mono); }
 @media(max-width:800px) { .issue-toolbar,.search-status { align-items:flex-start; flex-direction:column; } }
 
 .empty-evidence { padding:24px 0; color:var(--muted); line-height:1.6; }
+
+/* Final workflow pass: keep the review legible within a recording viewport. */
+.text-action { background: none; border: 0; padding: 7px 0; color: var(--accent); font-size: 14px; text-decoration: underline; text-underline-offset: 3px; }
+.text-action:hover { color: var(--ink); }
+.recommendation-actions { align-items: center; }
+.recommendation-citation { margin: 7px 0 0; font-size: 14px; line-height: 1.4; }
+.recommendation-citation summary { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.recommendation-citation blockquote { margin: 8px 0 2px; border-left: 2px solid var(--line); padding-left: 10px; color: var(--ink); line-height: 1.5; }
+.recommendation-next { margin-top: 8px !important; font-weight: 500; color: var(--ink) !important; }
+.source-card.is-recommended { border-color: #8A9DC2; }
+.source-card.is-recommended { background: #F2F4F9; }
+.source-card.is-recommended.is-selected { border-color: var(--accent); }
+.source-card.recent { animation: source-reveal 220ms ease-out; }
+.verified-summary { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 5px 18px; }
+.verified-summary dt { margin-top: 0; }
+.verified-summary dt:nth-of-type(1) { grid-column: 1; grid-row: 1; }
+.verified-summary dd:nth-of-type(1) { grid-column: 1; grid-row: 2; }
+.verified-summary dt:nth-of-type(2) { grid-column: 2; grid-row: 1; }
+.verified-summary dd:nth-of-type(2) { grid-column: 2; grid-row: 2; display: flex; gap: 6px; align-items: center; font-family: var(--mono); }
+.verified-evidence { font-size: 14px; margin-top: 18px; }
+.verified-evidence summary { color: var(--accent); }
+.verified-footer { flex-wrap: wrap; justify-content: space-between; align-items: center; }
+.verified-footer p { margin: 0; flex: 1; min-width: 190px; line-height: 1.45; }
+.validate-modal { max-height: calc(100dvh - 32px); overflow-y: auto; overscroll-behavior: contain; }
+@media(min-width:1400px) {
+  .top-nav { min-height: 62px; }
+  .app-shell { min-height: calc(100vh - 62px); }
+  main { padding: 18px 24px; }
+  .sidebar { padding-top: 22px; }
+  .question-card { padding: 16px 21px; }
+  .question-card h1 { margin: 12px 0 14px; font-size: 32px; }
+  .ticket-tabs { margin-bottom: 12px; padding-bottom: 9px; }
+  .ticket-tabs button { padding: 6px 10px; }
+  .question-actions { margin-top: 10px; }
+  .context-select { padding: 5px 8px; }
+  .decision-grid { margin-top: 17px; gap: 20px; }
+  .column-heading { min-height: 34px; margin-bottom: 7px; }
+  .column-heading h2 { font-size: 23px; }
+  .source-list { gap: 8px; }
+  .source-card { padding: 11px 14px; gap: 8px; }
+  .source-card h3 { margin-bottom: 6px; font-size: 16px; }
+  .source-flags { margin-bottom: 4px; }
+  .source-meta { line-height: 1.25; }
+  .score-number { font-size: 22px; }
+  .score-factor-labels { margin-top: 4px; }
+  .score-segments { height: 7px; }
+  .diff-panel,.trust-panel { padding: 17px; }
+  .diff-top { padding-bottom: 10px; margin-bottom: 12px; }
+  .claim-heading { min-height: 32px; }
+  .claim p { font-size: 15px; line-height: 1.55; margin: 8px 0 16px; }
+  .discrepancy { margin-top: 15px; padding-top: 12px; }
+  .diff-footer { margin-top: 14px; }
+  .factor { margin-bottom: 15px; }
+  .factor p { line-height: 1.35; }
+  .factor-track { margin: 6px 0; }
+  .formula { padding-top: 11px; }
+  .formula > p:nth-child(2) { line-height: 1.5; margin: 7px 0; }
+  .recommendation { margin-top: 16px; padding: 15px 19px; gap: 13px; }
+  .recommendation h3 { font-size: 17px; }
+  .recommendation-copy p { line-height: 1.35; }
+  .recommendation-actions { flex-direction: column; align-items: stretch; gap: 4px; }
+  .text-action { padding: 5px 0; }
+  .rejected-sources { margin-top: 12px; }
+  .escalation-panel { padding: 13px 17px; margin-top: 14px; }
+  .escalation-panel h2 { font-size: 24px; margin: 0 0 7px; }
+}
+.decision-result { scroll-margin-top:20px; }
+.decision-result:focus { outline:none; }
+.search-status strong { display:flex; align-items:center; gap:9px; }
+.search-status { min-height:62px; }
+.search-error { border-left:2px solid var(--red); padding-left:14px; }
+.action-confirmation { display:flex; align-items:center; gap:12px; padding:12px 0; border-block:1px solid var(--line); margin-bottom:16px; }
+.action-confirmation p { margin:0; flex:1; font-size:14px; }
+.action-confirmation svg { color:var(--green); }
+.toast-error { border-left-color:var(--red); }
+.toast-error svg { color:var(--red); }
+.progress-spinner { color:var(--accent); }
+.ticket-tabs { max-height:86px; overflow-y:auto; }
+@media(min-width:1400px) { .decision-grid { min-height:425px; } }
+@media(min-width:1400px) {
+  .source-card { padding:6px 14px; gap:4px; }
+  .source-card h3 { margin-bottom:4px; }
+  .trust-panel .factor { margin-bottom:10px; }
+  .question-actions { margin-top:4px; }
+  .issue-toolbar { margin-bottom:12px; }
+}
+.clause-reference { display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2; overflow:hidden; overflow-wrap:anywhere; }
+.button-new-issue { border-color:var(--accent); color:var(--accent); font-weight:600; }
+.review-record { margin-top: 16px; border-top: 1px solid var(--line); padding-top: 10px; color: var(--muted); font-size: 14px; } .review-record summary { cursor: pointer; } .review-record p { margin: 8px 0; }

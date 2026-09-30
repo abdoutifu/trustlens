@@ -22,6 +22,7 @@ export function NewIssueModal({ onClose, onSubmit }: {
     const element = dialog.current!;
     const previous = document.activeElement as HTMLElement | null;
     element.showModal();
+    element.querySelector<HTMLTextAreaElement>('textarea[name="question"]')?.focus();
     return () => { element.close(); previous?.focus(); };
   }, []);
 
@@ -51,7 +52,7 @@ export function NewIssueModal({ onClose, onSubmit }: {
 
   return <dialog ref={dialog} className="validate-modal new-issue-modal" aria-labelledby="new-issue-heading" onCancel={event => { event.preventDefault(); if (!submitting.current) onClose(); }}>
     <div className="modal-heading"><div><span className="eyebrow">Start a knowledge review</span><h2 id="new-issue-heading">New issue</h2></div><button type="button" className="icon-button" aria-label="Close new issue" disabled={pending} onClick={onClose}><X /></button></div>
-    <p className="modal-intro">Ask a specific payroll question, then set the context used to find and compare relevant evidence.</p>
+    <p className="modal-intro">Ask a specific payroll question, set its context, and find relevant source clauses.</p>
     <ol className="issue-flow" aria-label="Issue review workflow">{['Create issue', 'Find', 'Understand', 'Trust', 'Validate / escalate', 'Reuse'].map((step, index) => <li key={step}><span>{step}</span>{index < 5 && <ArrowRight size={13} aria-hidden="true" />}</li>)}</ol>
     <form onSubmit={submit} aria-busy={pending}>
       <fieldset disabled={pending} className="issue-fields">
@@ -61,8 +62,7 @@ export function NewIssueModal({ onClose, onSubmit }: {
       </fieldset>
       <p className="issue-disclosure">When AI assistance is enabled, your question and relevant source excerpts may be sent to OpenAI. Only include information you are permitted to share.</p>
       {error && <p id="issue-error" className="form-error" role="alert">{error.message}</p>}
-      <div className="modal-actions"><button className="button button-secondary" type="button" disabled={pending} onClick={onClose}>Cancel</button><button className="button button-primary" type="submit" disabled={pending}><FilePlus2 size={17} />{pending ? 'Creating issue…' : 'Create issue'}</button></div>
+      <div className="modal-actions"><button className="button button-secondary" type="button" disabled={pending} onClick={onClose}>Cancel</button><button className="button button-primary" type="submit" disabled={pending}><FilePlus2 size={17} />{pending ? 'Creating and finding…' : 'Create & find evidence'}</button></div>
     </form>
   </dialog>;
 }
-

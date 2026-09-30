@@ -1,7 +1,7 @@
 import { beforeEach, test } from 'node:test';
 import assert from 'node:assert/strict';
 import * as api from '../../server/store';
-import { checkComparison } from '../../server/compare';
+import { checkComparison, compareSources } from '../../server/compare';
 import { sources, scenario } from '../data/scenario';
 import { reviewDateBounds } from './scoring';
 function unwrap<T>(result: api.Result<T>): T { if (!result.ok) assert.fail(result.error.message); return result.data; }
@@ -109,4 +109,21 @@ test('Reader cannot bypass new-issue actions by supplying a forged role', async 
   const forged = api.validateAnswer({ questionId: 'ticket-a', sourceId: 's1', claim: sources[0].claim, owner: sources[0].owner!, reason: 'Attempted role override.', reviewBy: reviewDateBounds().min, role: 'Admin', tenantId: 'acme', capabilities: { canValidate: true } } as api.ValidationInput);
   assert.equal(forged.ok, false);
   if (!forged.ok) assert.equal(forged.error.code, 'FORBIDDEN');
+});
+
+test('identical verified clauses are compared once and retain both exact source citations', async () => {
+  const original = sources[0];
+  const verified = { ...original, id: 'reviewed-copy', reference: 'Reviewed card citation', kind: 'verified' as const };
+  const restore = fakeAI();
+  try {
+    const result = await compareSources(scenario, [original, verified]);
+    assert.deepEqual(result.citations, [original, verified].map(source => ({ sourceId: source.id, reference: source.reference, quote: source.claim })));
+    assert.equal(result.relationship, 'agreement');
+  } finally { restore(); }
+});
+
+test('grouping identical clauses never accepts a fabricated representative quotation', async () => {
+  const restore = fakeAI('agreement', citations => { citations[0].quote = 'Invented deadline'; });
+  try { await assert.rejects(compareSources(scenario, [sources[0], { ...sources[0], id: 'reviewed-copy' }]), /Ungrounded citation/); }
+  finally { restore(); }
 });

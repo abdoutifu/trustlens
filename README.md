@@ -28,7 +28,9 @@ The login screen displays these credentials. Account selection fills the login f
 
 **This is demo authentication, not production security.** Credentials are public by design. The local Node service holds data and opaque HttpOnly cookie sessions. Refresh preserves the session; restarting the service restores seed data. Logging out preserves review state. Public demo accounts and mock password hashes are not production identity.
 
-## Two tickets
+## Active Queue and sample decisions
+
+Sign-in and Reset demo open the Active Queue without selecting a question. Created issues appear in the queue; the two seeded cases remain available under the closed Sample decisions panel. The seed documents stay available for real knowledge search.
 
 ### A — Payroll correction after cutoff
 
@@ -92,7 +94,7 @@ Paper `#F4F2EC`, ink `#16181D`, accent `#1F3A93`, green `#2F6B4F`, amber `#B7791
 
 Focused scoring/service tests cover roles, tenant isolation/IDOR, unknown IDs, validation boundaries, expiry, confidence contradictions, corroboration, Ticket B resolution and reuse, frozen audit/hash chains and reset. Browser verification covers login, both tickets, typed validation errors, escalation/resolution/validation/reuse, expired cards, Admin audit, guide shortcuts and responsive layout.
 
-All payroll claims, owner statements, evidence attestations and clause-reference hashes are simulated. Escalation records a local owner-review workflow; it sends no message. Real identity, persistent/tamper-resistant audit storage, ingestion, verified payroll policy and owner messaging remain production work. No Aikido scan has been run. ECC code and final security reviews are used for this demo’s implementation.
+All payroll claims, owner statements, evidence attestations and clause-reference hashes are simulated. Escalation records a local owner-review workflow; it sends no message. Real identity, persistent/tamper-resistant audit storage, ingestion, verified payroll policy and owner messaging remain production work. Official Aikido results are supplied separately. Local tests and ECC reviews do not establish an Aikido audit result. ECC code and final security reviews are used for this demo’s implementation.
 
 ## Create → Find → Understand → Trust
 
@@ -109,4 +111,6 @@ Restart the local service after changing configuration. Do not use a `VITE_` key
 
 Search audit entries record the classification and exact source citations accepted, not an untrusted AI narrative. Verified cards preserve the reviewed source reference and exact quotation even if a later search returns new source IDs. UI request generations prevent old searches or previews from replacing a newer ticket, and sequence checks prevent a slower source preview from replacing a later selection. Review confirmations identify the next action; reviewed cards reopen their cited decision, and expired cards reopen for comparison only. Ticket switching and navigation restore the result position. The 1920×1080 decision and modal layouts were checked. Live-provider tests use controlled responses for success, insufficient evidence, conflicts and forged citations; a live server-side comparison was also exercised in the local browser without revealing or committing its configured key.
 
-OpenAI integration follows the official [Structured Outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs). Schema conformance is followed by application checks for complete, unique source IDs and exact quotations; it is not proof that an AI relevance assessment is infallible.
+OpenAI integration follows the official [Structured Outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs). Identical clauses from a policy and its verified card are compared once. After exact-quote verification, citations are expanded only to existing retrieved sources with the same country and identical claim. Different clauses stay separate, and missing or invented representative citations fail closed. Legal redlines use the retrieved evidence rather than seeded IDs and show exact source wording.
+
+Schema conformance is followed by application checks for complete, unique source IDs and exact quotations; it is not proof that an AI relevance assessment is infallible.

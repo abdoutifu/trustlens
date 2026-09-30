@@ -62,7 +62,7 @@ export function NewIssueModal({ onClose, onSubmit }: {
       </fieldset>
       <p className="issue-disclosure">When AI assistance is enabled, your question and relevant source excerpts may be sent to OpenAI. Only include information you are permitted to share.</p>
       {error && <p id="issue-error" className="form-error" role="alert">{error.message}</p>}
-      <div className="modal-actions"><button className="button button-secondary" type="button" disabled={pending} onClick={onClose}>Cancel</button><button className="button button-primary" type="submit" disabled={pending}><FilePlus2 size={17} />{pending ? 'Creating and finding…' : 'Create & find evidence'}</button></div>
+      <div className="modal-actions"><button className="button button-secondary" type="button" disabled={pending} onClick={onClose}>Cancel</button><button className="button button-primary" type="submit" disabled={pending}><FilePlus2 size={17} />{pending ? 'Creating and finding…' : 'Check trusted knowledge'}</button></div>
     </form>
   </dialog>;
 }
